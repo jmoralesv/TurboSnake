@@ -23,37 +23,7 @@ jobs:
     - name: Checkout repo
       uses: actions/checkout@v3
 
-    # - name: Install DOSBox
-    #   run: sudo apt update && sudo apt install -y dosbox zip unzip
-
-    # - name: Show DOSBox version and DOS version inside DOSBox
-    #   run: |
-    #     echo "=== DOSBox Version ==="
-    #     dosbox -version || echo "DOSBox doesn't support -version, using workaround"
-    #     echo "=== DOS (or MS-DOS) Version ==="
-    #     dosbox -c "ver" -c "exit" | head -n 20 || true
-
-    # - name: Create build folder
-    #   run: |
-    #     mkdir -p dos/cpp
-    #     cp -r "src/$ORIGINAL_FILENAME" "dos/cpp/$RENAMED_FILENAME"
-    #     cp -r tools dos/turbo
-
-    # - name: Create autoexec config
-    #   run: |
-    #     echo "mount c ./dos" > autoexec.conf
-    #     echo "c:" >> autoexec.conf
-    #     echo "cd \\turbo\\bin" >> autoexec.conf
-    #     echo "tcc \\cpp\\${RENAMED_FILENAME^^}" >> autoexec.conf
-    #     echo "exit" >> autoexec.conf
-
-    # - name: Show autoexec.conf contents
-    #   run: cat autoexec.conf
-
-    # - name: Run DOSBox with Turbo C++
-    #   run: dosbox -conf autoexec.conf
-
-    - name: 'Install dosbox-x (apt)'
+    - name: 'Install dosbox-x'
       run: sudo snap install dosbox-x
 
     - name: Create build folder
