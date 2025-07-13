@@ -18,11 +18,8 @@ int m[50][80], cantidad = 0, opt = 0, i, j, col, sx = 40, sy = 9, ren, a = 0, ax
 struct time t;
 
 typedef struct cuerpo {
-
     int x;
-
     int y;
-
     struct cuerpo* sig;
     struct cuerpo* ant;
 }body;
