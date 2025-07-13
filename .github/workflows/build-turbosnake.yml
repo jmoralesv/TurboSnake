@@ -30,7 +30,8 @@ jobs:
       run: |
         echo "=== DOSBox Version ==="
         dosbox -version || echo "DOSBox doesn't support -version, using workaround"
-        dosbox -noconsole -c "ver" -c "exit" | head -n 20 || true
+        echo "=== DOS (or MS-DOS) Version ==="
+        dosbox -c "ver" -c "exit" | head -n 20 || true
 
     - name: Create build folder
       run: |
@@ -46,8 +47,11 @@ jobs:
         echo "tcc \\cpp\\${RENAMED_FILENAME^^}" >> autoexec.conf
         echo "exit" >> autoexec.conf
 
+    - name: Show autoexec.conf contents
+      run: cat autoexec.conf
+
     - name: Run DOSBox with Turbo C++
-      run: dosbox -conf autoexec.conf -noconsole
+      run: dosbox -conf autoexec.conf
 
     - name: Archive result
       run: |
