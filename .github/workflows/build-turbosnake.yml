@@ -5,14 +5,13 @@ on:
     branches: [ "main" ]
     paths:
       - 'src/**'
-      - 'tools/**'
       - '.github/workflows/**'
   pull_request:
     branches: [ "main" ]
 
 jobs:
   build-turbosnake:
-    name: Build TurboSnake with Turbo C++ 3.0 in DOSBox
+    name: Build TurboSnake with Turbo C++ 3.0 in DOSBox-X
     runs-on: ubuntu-latest
 
     env:
@@ -30,9 +29,10 @@ jobs:
       run: |
         mkdir -p build
         cp -r "src/$ORIGINAL_FILENAME" "build/$RENAMED_FILENAME"
+        ls -la build
 
-    - name: 'Compile'
-      uses: 'joncloud/dos-build-action@main'
+    - name: Compile using Turbo C++ in DOSBox-X
+      uses: joncloud/dos-build-action@main
       timeout-minutes: 2
       with:
         programs: |
@@ -54,16 +54,14 @@ jobs:
     - name: Show build directory contents
       run: ls -la build
 
-    - name: Archive result
+    - name: Artifact path setup
       run: |
         BASENAME="${RENAMED_FILENAME%.*}"
         EXENAME="${BASENAME^^}.EXE"
-        mkdir -p output
-        cp build/$EXENAME output/
-        zip -j output.zip output/*
+        echo "artifactPath=build/$EXENAME" >> $GITHUB_ENV
 
     - name: Upload EXE
       uses: actions/upload-artifact@v4
       with:
         name: turbosnake-exe
-        path: output.zip
+        path: ${{ env.artifactPath }}
