@@ -31,6 +31,22 @@ jobs:
         cp -r "src/$ORIGINAL_FILENAME" "build/$RENAMED_FILENAME"
         ls -la build
 
+    # This step creates the run commands to be executed in DOSBox-X
+    # and replaces the ${RENAMED_FILENAME} variable with the actual filename
+    # then the commands are stored in the `run_commands` output variable
+    - name: Prepare run commands
+      id: run
+      run: |
+        echo "run_commands<<EOF" >> $GITHUB_OUTPUT
+        echo "c:" >> $GITHUB_OUTPUT
+        echo "cd \\build" >> $GITHUB_OUTPUT
+        echo "dir" >> $GITHUB_OUTPUT
+        echo "tcc ${RENAMED_FILENAME}" >> $GITHUB_OUTPUT
+        echo "EOF" >> $GITHUB_OUTPUT
+
+    - name: Show run commands
+      run: echo "${{ steps.run.outputs.run_commands }}"
+
     - name: Compile using Turbo C++ in DOSBox-X
       uses: joncloud/dos-build-action@main
       timeout-minutes: 2
@@ -38,11 +54,12 @@ jobs:
         programs: |
           $/turbo-c++/3.00:c:\tc
           build:c:\build
-        run: |
-          c:
-          cd \build
-          dir
-          tcc game.cpp
+        run: "${{ steps.run.outputs.run_commands }}"
+        # run: |
+        #   c:
+        #   cd \build
+        #   dir
+        #   tcc game.cpp
         conf: |
           [dosbox]
           memsize=256
