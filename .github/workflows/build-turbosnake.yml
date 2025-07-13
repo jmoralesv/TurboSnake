@@ -22,7 +22,7 @@ jobs:
     - name: Checkout repo
       uses: actions/checkout@v3
 
-    - name: 'Install dosbox-x'
+    - name: Install DOSBox-X using Snap
       run: sudo snap install dosbox-x
 
     - name: Create build folder
@@ -55,11 +55,6 @@ jobs:
           $/turbo-c++/3.00:c:\tc
           build:c:\build
         run: "${{ steps.run.outputs.run_commands }}"
-        # run: |
-        #   c:
-        #   cd \build
-        #   dir
-        #   tcc game.cpp
         conf: |
           [dosbox]
           memsize=256
@@ -82,3 +77,4 @@ jobs:
       with:
         name: turbosnake-exe
         path: ${{ env.artifactPath }}
+        compression-level: 9 # maximum compression
