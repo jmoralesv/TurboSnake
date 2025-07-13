@@ -58,7 +58,7 @@ jobs:
 
     - name: Create build folder
       run: |
-        build
+        mkdir -p build
         cp -r "src/$ORIGINAL_FILENAME" "build/$RENAMED_FILENAME"
 
     - name: 'Compile'
