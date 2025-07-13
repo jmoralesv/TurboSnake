@@ -1,0 +1,55 @@
+name: Build TurboSnake with Turbo C++ 3.0 in DOSBox
+
+on:
+  push:
+    branches: [ "master" ]
+    paths:
+      - 'src/**'
+      - 'tools/**'
+      - '.github/workflows/**'
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build-turbosnake:
+    runs-on: ubuntu-latest
+
+    env:
+      ORIGINAL_FILENAME: "PIXGAMA2 copia.cpp"
+      RENAMED_FILENAME: "game.cpp"
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v3
+
+    - name: Install DOSBox
+      run: sudo apt update && sudo apt install -y dosbox zip unzip
+
+    - name: Create build folder
+      run: |
+        mkdir -p dos/cpp
+        cp -r "src/$ORIGINAL_FILENAME" "dos/cpp/$RENAMED_FILENAME"
+        cp -r tools dos/turbo
+
+    - name: Create autoexec config
+      run: |
+        echo "mount c ./dos" > autoexec.conf
+        echo "c:" >> autoexec.conf
+        echo "cd \\turbo\\bin" >> autoexec.conf
+        echo "tcc \\cpp\\${RENAMED_FILENAME^^}" >> autoexec.conf
+        echo "exit" >> autoexec.conf
+
+    - name: Run DOSBox with Turbo C++
+      run: dosbox -conf autoexec.conf -noconsole
+
+    - name: Archive result
+      run: |
+        mkdir -p output
+        cp dos/cpp/${RENAMED_FILENAME%.*}.EXE output/
+        zip -j output.zip output/*
+
+    - name: Upload EXE
+      uses: actions/upload-artifact@v4
+      with:
+        name: turbosnake-exe
+        path: output.zip
