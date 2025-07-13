@@ -23,40 +23,67 @@ jobs:
     - name: Checkout repo
       uses: actions/checkout@v3
 
-    - name: Install DOSBox
-      run: sudo apt update && sudo apt install -y dosbox zip unzip
+    # - name: Install DOSBox
+    #   run: sudo apt update && sudo apt install -y dosbox zip unzip
 
-    - name: Show DOSBox version and DOS version inside DOSBox
-      run: |
-        echo "=== DOSBox Version ==="
-        dosbox -version || echo "DOSBox doesn't support -version, using workaround"
-        echo "=== DOS (or MS-DOS) Version ==="
-        dosbox -c "ver" -c "exit" | head -n 20 || true
+    # - name: Show DOSBox version and DOS version inside DOSBox
+    #   run: |
+    #     echo "=== DOSBox Version ==="
+    #     dosbox -version || echo "DOSBox doesn't support -version, using workaround"
+    #     echo "=== DOS (or MS-DOS) Version ==="
+    #     dosbox -c "ver" -c "exit" | head -n 20 || true
+
+    # - name: Create build folder
+    #   run: |
+    #     mkdir -p dos/cpp
+    #     cp -r "src/$ORIGINAL_FILENAME" "dos/cpp/$RENAMED_FILENAME"
+    #     cp -r tools dos/turbo
+
+    # - name: Create autoexec config
+    #   run: |
+    #     echo "mount c ./dos" > autoexec.conf
+    #     echo "c:" >> autoexec.conf
+    #     echo "cd \\turbo\\bin" >> autoexec.conf
+    #     echo "tcc \\cpp\\${RENAMED_FILENAME^^}" >> autoexec.conf
+    #     echo "exit" >> autoexec.conf
+
+    # - name: Show autoexec.conf contents
+    #   run: cat autoexec.conf
+
+    # - name: Run DOSBox with Turbo C++
+    #   run: dosbox -conf autoexec.conf
+
+    - name: 'Install dosbox-x (apt)'
+      run: sudo snap install dosbox-x
 
     - name: Create build folder
       run: |
-        mkdir -p dos/cpp
-        cp -r "src/$ORIGINAL_FILENAME" "dos/cpp/$RENAMED_FILENAME"
-        cp -r tools dos/turbo
+        build
+        cp -r "src/$ORIGINAL_FILENAME" "build/$RENAMED_FILENAME"
 
-    - name: Create autoexec config
-      run: |
-        echo "mount c ./dos" > autoexec.conf
-        echo "c:" >> autoexec.conf
-        echo "cd \\turbo\\bin" >> autoexec.conf
-        echo "tcc \\cpp\\${RENAMED_FILENAME^^}" >> autoexec.conf
-        echo "exit" >> autoexec.conf
+    - name: 'Compile'
+      uses: 'joncloud/dos-build-action@main'
+      timeout-minutes: 2
+      with:
+        programs: |
+          $/turbo-c++/3.00:c:\tc
+          build:c:\build
+        run: |
+          c:
+          cd \build
+          tcc ${RENAMED_FILENAME}
+        conf: |
+          [dosbox]
+          memsize=256
 
-    - name: Show autoexec.conf contents
-      run: cat autoexec.conf
-
-    - name: Run DOSBox with Turbo C++
-      run: dosbox -conf autoexec.conf
+          [cpu]
+          cycles=max
+          turbo=true
 
     - name: Archive result
       run: |
         mkdir -p output
-        cp dos/cpp/${RENAMED_FILENAME%.*}.EXE output/
+        cp build/${RENAMED_FILENAME%.*}.EXE output/
         zip -j output.zip output/*
 
     - name: Upload EXE
