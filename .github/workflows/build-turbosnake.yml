@@ -86,8 +86,10 @@ jobs:
 
     - name: Archive result
       run: |
+        BASENAME="${RENAMED_FILENAME%.*}"
+        EXENAME="${BASENAME^^}.EXE"
         mkdir -p output
-        cp build/${RENAMED_FILENAME%.*}.EXE output/
+        cp build/$EXENAME output/
         zip -j output.zip output/*
 
     - name: Upload EXE
