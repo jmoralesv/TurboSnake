@@ -71,7 +71,8 @@ jobs:
         run: |
           c:
           cd \build
-          tcc ${RENAMED_FILENAME}
+          dir
+          tcc game.cpp
         conf: |
           [dosbox]
           memsize=256
