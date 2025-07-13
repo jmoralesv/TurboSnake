@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      ORIGINAL_FILENAME: "PIXGAMA2 copia.cpp"
+      ORIGINAL_FILENAME: "PIXGAMA2 copia.CPP"
       RENAMED_FILENAME: "game.cpp"
 
     steps:
@@ -25,6 +25,12 @@ jobs:
 
     - name: Install DOSBox
       run: sudo apt update && sudo apt install -y dosbox zip unzip
+
+    - name: Show DOSBox version and DOS version inside DOSBox
+      run: |
+        echo "=== DOSBox Version ==="
+        dosbox -version || echo "DOSBox doesn't support -version, using workaround"
+        dosbox -noconsole -c "ver" -c "exit" | head -n 20 || true
 
     - name: Create build folder
       run: |
