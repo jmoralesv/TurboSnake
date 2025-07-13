@@ -80,6 +80,9 @@ jobs:
           cycles=max
           turbo=true
 
+    - name: Show build directory contents
+      run: ls -la build
+
     - name: Archive result
       run: |
         mkdir -p output
