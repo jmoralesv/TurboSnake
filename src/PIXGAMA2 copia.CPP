@@ -183,19 +183,19 @@ void main(void)
                 switch (op)
                 {
                 case up:
-                    if (sy > 30) { sy--; cabeza->y = sy; }
+                    if (sy > ri) { sy--; cabeza->y = sy; }
                     else { gameover = 1; op = 27; }
                     break;
                 case down:
-                    if (sy < 10) { sy++; cabeza->y = sy; }
+                    if (sy < rf) { sy++; cabeza->y = sy; }
                     else { gameover = 1; op = 27; }
                     break;
                 case left:
-                    if (sx > 80) { sx--; cabeza->x = sx; }
+                    if (sx > ci) { sx--; cabeza->x = sx; }
                     else { gameover = 1; op = 27; }
                     break;
                 case right:
-                    if (sx < 10) { sx++; cabeza->x = sx; }
+                    if (sx < cf) { sx++; cabeza->x = sx; }
                     else { gameover = 1; op = 27; }
                     break;
                 case '1':
