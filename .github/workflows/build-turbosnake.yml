@@ -1,17 +1,18 @@
-name: Build TurboSnake with Turbo C++ 3.0 in DOSBox
+name: Build TurboSnake
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "main" ]
     paths:
       - 'src/**'
       - 'tools/**'
       - '.github/workflows/**'
   pull_request:
-    branches: [ "master" ]
+    branches: [ "main" ]
 
 jobs:
   build-turbosnake:
+    name: Build TurboSnake with Turbo C++ 3.0 in DOSBox
     runs-on: ubuntu-latest
 
     env:
