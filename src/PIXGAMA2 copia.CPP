@@ -57,215 +57,215 @@ void main(void)
 
         switch (opt)
         {
-        case 1: gettime(&t); t.ti_sec = 0; t.ti_hour = 0; t.ti_min = 0;
-            t.ti_hund = 0; settime(&t);
-            _setcursortype(_NOCURSOR);
+            case 1: gettime(&t); t.ti_sec = 0; t.ti_hour = 0; t.ti_min = 0;
+                t.ti_hund = 0; settime(&t);
+                _setcursortype(_NOCURSOR);
 
-            ////////////inicializar la matriz///////////////////
+                ////////////inicializar la matriz///////////////////
 
-            for (i = 0; i < 50; i++)
-            {
-                for (j = 0; j < 80; j++)
+                for (i = 0; i < 50; i++)
                 {
-                    m[i][j] = 0;
-                }
-            }
-
-            ///////////////////////////////////////////////////
-            ///////////Fondo estÃ¡tico//////////////////////
-
-            fondo();
-
-            ////////////////Crear asteriscos///////////////////
-            asteriscos(18);
-            ///////////////////////////////////////////////////
-            do
-            {
-                limite--;
-                if (band == 10)
-                {
-                    band = band + 50; gotoxy(23, 7); textcolor(WHITE + BLINK); cprintf("Bienvenido al segundo nivel!"); gotoxy(32, 6); clreol();
-                    asteriscos(cantidad + 16); velocidad = 10;
-                    nivel = 2;
-                }
-                if (band == 75)
-                {
-                    band = band + 50; gotoxy(23, 7); textcolor(WHITE + BLINK); cprintf("Bienvenido al tercel nivel!"); gotoxy(32, 6); clreol();
-                    asteriscos(cantidad + 20); velocidad = 40;
-                    nivel = 3;
-                }
-                if (band == 145)
-                {
-                    band = band + 50; gotoxy(23, 7); textcolor(WHITE + BLINK); cprintf("Tu puedes! ultimo nivel :D"); gotoxy(32, 6); clreol();
-                    asteriscos(cantidad + 100); velocidad = 70;
-                    nivel = 4;
-                }
-                if (band == 220)
-                {
-                    op = 27;
-                }
-
-                //////////////////////////////////////////////////
-                crea();
-                //////////////////////////////////////////////
-
-                if (sy < 18 && pc == 0)
-                {
-                    puertac();
-                }
-
-                if (sy == 19 && pa == 0)
-                {
-                    puertaa();
-                }
-
-                if (sy == 25 || pa == 1)
-                {
-                    puertal();
-                    pa = 1; pc = 1;
-                }
-
-                ////////////////////////////////////////////////////////////
-
-                if (m[sy - 1][sx - 1] != 0)//si esta tocando
-                {
-                    textcolor(m[sy - 1][sx - 1]);
-                    m[sy - 1][sx - 1] = 0; limite = limite + 85;
-                    band++;
-                }
-                else
-                {
-                    if (a != 0)
+                    for (j = 0; j < 80; j++)
                     {
-                        cola = temp->sig;
-                        cola->ant = temp->ant;
-                        free(temp);
-                        temp = cola;
+                        m[i][j] = 0;
                     }
                 }
 
-                ///////////////////////////////////////////////////////////////////
+                ///////////////////////////////////////////////////
+                ///////////Fondo estático//////////////////////
 
-                ///////////////////////////Imprimir snake/////////////////////////////////////
+                fondo();
 
-                gotoxy(princi->x, princi->y); cprintf("@"); delay((200 - velocidad) + truco);
-
-                gotoxy(cola->x, cola->y); cprintf(" "); a = a + 1;
-                ///////////////////////////////////////////////////////////////////////
-                //////////////////////////por si se come a si misma//////////////////////////////
-
-                aux = princi->ant->ant;
-                while (aux != NULL)
+                ////////////////Crear asteriscos///////////////////
+                asteriscos(18);
+                ///////////////////////////////////////////////////
+                do
                 {
-                    if (princi->x == aux->x && princi->y == aux->y)
+                    limite--;
+                    if (band == 10)
+                    {
+                        band = band + 50; gotoxy(23, 7); textcolor(WHITE + BLINK); cprintf("Bienvenido al segundo nivel!"); gotoxy(32, 6); clreol();
+                        asteriscos(cantidad + 16); velocidad = 10;
+                        nivel = 2;
+                    }
+                    if (band == 75)
+                    {
+                        band = band + 50; gotoxy(23, 7); textcolor(WHITE + BLINK); cprintf("Bienvenido al tercel nivel!"); gotoxy(32, 6); clreol();
+                        asteriscos(cantidad + 20); velocidad = 40;
+                        nivel = 3;
+                    }
+                    if (band == 145)
+                    {
+                        band = band + 50; gotoxy(23, 7); textcolor(WHITE + BLINK); cprintf("Tu puedes! ultimo nivel :D"); gotoxy(32, 6); clreol();
+                        asteriscos(cantidad + 100); velocidad = 70;
+                        nivel = 4;
+                    }
+                    if (band == 220)
                     {
                         op = 27;
-                        canibal = 1;
                     }
 
-                    aux = aux->ant;
+                    //////////////////////////////////////////////////
+                    crea();
+                    //////////////////////////////////////////////
+
+                    if (sy < 18 && pc == 0)
+                    {
+                        puertac();
+                    }
+
+                    if (sy == 19 && pa == 0)
+                    {
+                        puertaa();
+                    }
+
+                    if (sy == 25 || pa == 1)
+                    {
+                        puertal();
+                        pa = 1; pc = 1;
+                    }
+
+                    ////////////////////////////////////////////////////////////
+
+                    if (m[sy - 1][sx - 1] != 0)//si esta tocando
+                    {
+                        textcolor(m[sy - 1][sx - 1]);
+                        m[sy - 1][sx - 1] = 0; limite = limite + 85;
+                        band++;
+                    }
+                    else
+                    {
+                        if (a != 0)
+                        {
+                            cola = temp->sig;
+                            cola->ant = temp->ant;
+                            free(temp);
+                            temp = cola;
+                        }
+                    }
+
+                    ///////////////////////////////////////////////////////////////////
+
+                    ///////////////////////////Imprimir snake/////////////////////////////////////
+
+                    gotoxy(princi->x, princi->y); cprintf("@"); delay((200 - velocidad) + truco);
+
+                    gotoxy(cola->x, cola->y); cprintf(" "); a = a + 1;
+                    ///////////////////////////////////////////////////////////////////////
+                    //////////////////////////por si se come a si misma//////////////////////////////
+
+                    aux = princi->ant->ant;
+                    while (aux != NULL)
+                    {
+                        if (princi->x == aux->x && princi->y == aux->y)
+                        {
+                            op = 27;
+                            canibal = 1;
+                        }
+
+                        aux = aux->ant;
+                    }
+
+                    ///////////Condiciones para el muro/////////////////////////////////////
+                     /*if(sy==37&&(sx>=39&&sx<=70))
+                          {
+                          op=27 ;
+                          canibal=1;
+                          }
+                       */
+                       /////////////////////////////////////////////////////////////////////////
+
+                    dinamicos();
+
+                    if (kbhit())
+                        op = getch();
+
+                    switch (op)
+                    {
+                        case up:
+                            if (sy > ri) { sy--; cabeza->y = sy; }
+                            else { gameover = 1; op = 27; }
+                            break;
+                        case down:
+                            if (sy < rf) { sy++; cabeza->y = sy; }
+                            else { gameover = 1; op = 27; }
+                            break;
+                        case left:
+                            if (sx > ci) { sx--; cabeza->x = sx; }
+                            else { gameover = 1; op = 27; }
+                            break;
+                        case right:
+                            if (sx < cf) { sx++; cabeza->x = sx; }
+                            else { gameover = 1; op = 27; }
+                            break;
+                        case '1':
+                            if (truco == 0) { truco = 120; }
+                            op = 0;
+                            break;
+                        case '2':
+                            velocidad = velocidad + 20;
+                            op = 0;
+                            break;
+                    }
+
+                    gotoxy(0, 0); cprintf("VIDA RESTANTE:%d ", limite);
+                    if (limite < 1)//12.5 ciclos son aprox 1 seg en un procesador de 2 gigahertz
+                    {
+                        op = 27;
+                    }
                 }
+                while (op != esc);
 
-                ///////////Condiciones para el muro/////////////////////////////////////
-                 /*if(sy==37&&(sx>=39&&sx<=70))
-                      {
-                      op=27 ;
-                      canibal=1;
-                      }
-                   */
-                   /////////////////////////////////////////////////////////////////////////
-
-                dinamicos();
-
-                if (kbhit())
-                    op = getch();
-
-                switch (op)
+                if (op == esc)
                 {
-                case up:
-                    if (sy > ri) { sy--; cabeza->y = sy; }
-                    else { gameover = 1; op = 27; }
-                    break;
-                case down:
-                    if (sy < rf) { sy++; cabeza->y = sy; }
-                    else { gameover = 1; op = 27; }
-                    break;
-                case left:
-                    if (sx > ci) { sx--; cabeza->x = sx; }
-                    else { gameover = 1; op = 27; }
-                    break;
-                case right:
-                    if (sx < cf) { sx++; cabeza->x = sx; }
-                    else { gameover = 1; op = 27; }
-                    break;
-                case '1':
-                    if (truco == 0) { truco = 120; }
-                    op = 0;
-                    break;
-                case '2':
-                    velocidad = velocidad + 20;
-                    op = 0;
-                    break;
+                    pantfinal();
                 }
 
-                gotoxy(0, 0); cprintf("VIDA RESTANTE:%d ", limite);
-                if (limite < 1)//12.5 ciclos son aprox 1 seg en un procesador de 2 gigahertz
+                cantidad = 0; opt = 0; i = 0; j = 0; a = 0, col = 0; ren = 0; velocidad = 0; truco = 0; gameover = 0; nivel = 1; ci = 10; ri = 10; rf = 40; cf = 70; sy = 18; sx = 40; op = 0; op2 = 0; y1 = 0; x1 = 0; band = 0, limite = 100, pa = 0, pc = 0, opt = 0, continu = 0;
+
+                ///////Para limpiar a la serpiente XD///////////////
+                while (temp->sig != NULL)
                 {
-                    op = 27;
+                    cola = temp->sig;
+                    cola->ant = temp->ant;
+                    free(temp);
+                    temp = cola;
+                    aux = NULL;
                 }
-            }
-            while (op != esc);
-
-            if (op == esc)
-            {
-                pantfinal();
-            }
-
-            cantidad = 0; opt = 0; i = 0; j = 0; a = 0, col = 0; ren = 0; velocidad = 0; truco = 0; gameover = 0; nivel = 1; ci = 10; ri = 10; rf = 40; cf = 70; sy = 18; sx = 40; op = 0; op2 = 0; y1 = 0; x1 = 0; band = 0, limite = 100, pa = 0, pc = 0, opt = 0, continu = 0;
-
-            ///////Para limpiar a la serpiente XD///////////////
-            while (temp->sig != NULL)
-            {
-                cola = temp->sig;
-                cola->ant = temp->ant;
-                free(temp);
-                temp = cola;
-                aux = NULL;
-            }
-            ///////////////////////////////////////////////////
-            clrscr();
-            break;
-        case 2:
-            gotoxy(15, 28); cprintf("Salir?");
-            gotoxy(15, 30); cprintf("SI:1NO:2 \n:"); flushall(); gets(cont);
-            continu = atoi(cont);
-            clrscr();
-            break;
+                ///////////////////////////////////////////////////
+                clrscr();
+                break;
+            case 2:
+                gotoxy(15, 28); cprintf("Salir?");
+                gotoxy(15, 30); cprintf("SI:1NO:2 \n:"); flushall(); gets(cont);
+                continu = atoi(cont);
+                clrscr();
+                break;
         }
     }
     while (continu != 1);
 }
 
-/***********FunciÃ³n Fondo**************************************/
+/***********Función Fondo**************************************/
 void fondo()
 {
     textbackground(BLACK); clrscr();
 
     for (col = ci; col < cf; col++)
     {
-        gotoxy(col, ri); cprintf("Ã");
-        gotoxy(col, rf); cprintf("Ã");
+        gotoxy(col, ri); cprintf("Í");
+        gotoxy(col, rf); cprintf("Í");
     }
     for (ren = ri; ren < rf; ren++)
     {
-        gotoxy(ci, ren); cprintf("Âº");
-        gotoxy(cf, ren); cprintf("Âº");
+        gotoxy(ci, ren); cprintf("º");
+        gotoxy(cf, ren); cprintf("º");
     }
 
-    gotoxy(10, 10); cprintf("Ã‰");
-    gotoxy(10, 30); cprintf("Ãˆ");
-    gotoxy(80, 10); cprintf("Â»");
-    gotoxy(80, 30); cprintf("Â¼");
+    gotoxy(10, 10); cprintf("É");
+    gotoxy(10, 30); cprintf("È");
+    gotoxy(80, 10); cprintf("»");
+    gotoxy(80, 30); cprintf("¼");
 
     gotoxy(32, 1); cprintf("AYUDA");
     gotoxy(13, 3); cprintf("Pulsar 1=Truco:Disminuir velocidad(puede utilizarlo una vez)");
@@ -282,7 +282,7 @@ void fondo()
 
 }
 
-/***********FunciÃ³n asteriscos*********************************/
+/***********Función asteriscos*********************************/
 void asteriscos(int n)
 {
     int k, c = 0, r = 0, color = 0, pass = 1;
@@ -310,7 +310,7 @@ void asteriscos(int n)
 }
 
 /**************************************************************/
-/**********FunciÃ³n pantfinal*************************************/
+/**********Función pantfinal*************************************/
 void pantfinal()
 {
     char dummy[5];
@@ -427,7 +427,7 @@ void puertac(void)
 {
     gotoxy(18, 7); printf(" ========================================== ");
     gotoxy(18, 8); printf("|x x x x x x     Bienvenido!   x x x x x x |");
-    gotoxy(18, 9); printf("| '   Ã¯   .                     u   +   3  |");
+    gotoxy(18, 9); printf("| '   ï   .                     u   +   3  |");
     gotoxy(18, 10); printf(" ================          ================ ");
     gotoxy(35, 11); printf("|        |");
     gotoxy(35, 12); printf("|        |");
@@ -444,7 +444,7 @@ void puertaa(void)
 {
     gotoxy(18, 7); printf(" ========================================== ");
     gotoxy(18, 8); printf("|x x x x x x     Bienvenido!   x x x x x x |");
-    gotoxy(18, 9); printf("| '   Ã¯   .                     u   +   3  |");
+    gotoxy(18, 9); printf("| '   ï   .                     u   +   3  |");
     gotoxy(18, 10); printf(" ================          ================ ");
     gotoxy(35, 11); printf("|        |");
     gotoxy(35, 12); printf("|        |");
@@ -467,7 +467,7 @@ void puertal(void)
 {
     gotoxy(18, 7); printf(" ========================================== ");
     gotoxy(18, 8); printf("|x x x x x xCuidado con la puerta! x x x x |");
-    gotoxy(18, 9); printf("| '   Ã¯   .                         +   3  |");
+    gotoxy(18, 9); printf("| '   ï   .                         +   3  |");
     gotoxy(18, 10); printf(" ================          ================ ");
     gotoxy(35, 11); printf("|        |");
     gotoxy(35, 12); printf("|        |");

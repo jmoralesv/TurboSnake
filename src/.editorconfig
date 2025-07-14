@@ -31,7 +31,11 @@ tab_width = 2
 
 # C++ code style settings:
 [*.{c++,cc,cpp,cxx,h,h++,hh,hpp,hxx,inl,ipp,tlh,tli}]
+# use charset = ISO 8859-1 (aka Latin1) so it can be read by Turbo C++ and older compilers
+charset = latin1
+
 cpp_indent_case_contents = true
+cpp_indent_case_labels = true
 cpp_indent_case_contents_when_block = true
 cpp_indent_preserve_comments = true
 
