@@ -44,10 +44,13 @@ void puertaa(void);
 void puertal(void);
 void restart(void);
 void pantfinal(void);
+void configurarCaracteresEspanol(void);
 /////////////////////////////////////////
 
 void main(void)
 {
+    configurarCaracteresEspanol();
+
     char cont[3];
     int pa = 0, pc = 0, continu = 0;
 
@@ -365,7 +368,7 @@ int inicio(void)
     do
     {
         clrscr();
-        printf("Selecciona opcion\n1.-Juego Nuevo\n2.-Salir\n");
+        cprintf("Selecciona opci%cn\n1.-Juego Nuevo\n2.-Salir\n", 162);
 
         do
         {
@@ -418,7 +421,7 @@ void crea(void)
 void dinamicos(void)
 {
     textcolor(WHITE); gotoxy(15, 48); cprintf("Nivel:%d", nivel);
-    textcolor(WHITE); gotoxy(33, 48); cprintf("Puntuacion:%d ", band);
+    textcolor(WHITE); gotoxy(33, 48); cprintf("Puntuaci%cn:%d ", 162, band);
     textcolor(WHITE); gettime(&t); gotoxy(55, 48); cprintf("Tiempo:  %2d:%2d:%2d:%2d", t.ti_hour, t.ti_min, t.ti_sec, t.ti_hund);
 }
 
@@ -484,4 +487,17 @@ void puertal(void)
     gotoxy(35, 23); printf("(        )");
     gotoxy(35, 24); printf("(        )");
     gotoxy(35, 25); printf("(        )");
+}
+
+void configurarCaracteresEspanol(void)
+{
+    union REGS regs;
+    regs.h.ah = 0x10;
+    regs.h.al = 0;
+    regs.h.bh = 0;
+    regs.h.bl = 2;  // Load ROM 8x16 font
+    int86(0x10, &regs, &regs);
+
+    // Set code page to 850 which DOS uses for Western European languages
+    system("chcp 850");
 }
