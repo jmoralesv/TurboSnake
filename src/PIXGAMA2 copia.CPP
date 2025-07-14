@@ -17,7 +17,8 @@ int m[50][80], cantidad = 0, opt = 0, i, j, col, sx = 40, sy = 9, ren, a = 0, ax
 
 struct time t;
 
-typedef struct cuerpo {
+typedef struct cuerpo
+{
     int x;
     int y;
     struct cuerpo* sig;
@@ -71,7 +72,7 @@ void main(void)
             }
 
             ///////////////////////////////////////////////////
-            ///////////Fondo estático//////////////////////
+            ///////////Fondo estÃ¡tico//////////////////////
 
             fondo();
 
@@ -118,7 +119,8 @@ void main(void)
                     puertaa();
                 }
 
-                if (sy == 25 || pa == 1) {
+                if (sy == 25 || pa == 1)
+                {
                     puertal();
                     pa = 1; pc = 1;
                 }
@@ -133,7 +135,8 @@ void main(void)
                 }
                 else
                 {
-                    if (a != 0) {
+                    if (a != 0)
+                    {
                         cola = temp->sig;
                         cola->ant = temp->ant;
                         free(temp);
@@ -210,7 +213,8 @@ void main(void)
                 {
                     op = 27;
                 }
-            } while (op != esc);
+            }
+            while (op != esc);
 
             if (op == esc)
             {
@@ -238,29 +242,30 @@ void main(void)
             clrscr();
             break;
         }
-    } while (continu != 1);
+    }
+    while (continu != 1);
 }
 
-/***********Función Fondo**************************************/
+/***********FunciÃ³n Fondo**************************************/
 void fondo()
 {
     textbackground(BLACK); clrscr();
 
     for (col = ci; col < cf; col++)
     {
-        gotoxy(col, ri); cprintf("Í");
-        gotoxy(col, rf); cprintf("Í");
+        gotoxy(col, ri); cprintf("Ã");
+        gotoxy(col, rf); cprintf("Ã");
     }
     for (ren = ri; ren < rf; ren++)
     {
-        gotoxy(ci, ren); cprintf("º");
-        gotoxy(cf, ren); cprintf("º");
+        gotoxy(ci, ren); cprintf("Âº");
+        gotoxy(cf, ren); cprintf("Âº");
     }
 
-    gotoxy(10, 10); cprintf("É");
-    gotoxy(10, 30); cprintf("È");
-    gotoxy(80, 10); cprintf("»");
-    gotoxy(80, 30); cprintf("¼");
+    gotoxy(10, 10); cprintf("Ã‰");
+    gotoxy(10, 30); cprintf("Ãˆ");
+    gotoxy(80, 10); cprintf("Â»");
+    gotoxy(80, 30); cprintf("Â¼");
 
     gotoxy(32, 1); cprintf("AYUDA");
     gotoxy(13, 3); cprintf("Pulsar 1=Truco:Disminuir velocidad(puede utilizarlo una vez)");
@@ -277,7 +282,7 @@ void fondo()
 
 }
 
-/***********Función asteriscos*********************************/
+/***********FunciÃ³n asteriscos*********************************/
 void asteriscos(int n)
 {
     int k, c = 0, r = 0, color = 0, pass = 1;
@@ -294,7 +299,8 @@ void asteriscos(int n)
             {
                 pass = 0;//Para asegurarme que los asteriscos no aparezcan en el muro
             }
-        } while (pass == 0);
+        }
+        while (pass == 0);
 
         color = random(13) + 2;
         gotoxy(c, r); textcolor(color);
@@ -304,7 +310,7 @@ void asteriscos(int n)
 }
 
 /**************************************************************/
-/**********Función pantfinal*************************************/
+/**********FunciÃ³n pantfinal*************************************/
 void pantfinal()
 {
     char dummy[5];
@@ -361,7 +367,8 @@ int inicio(void)
         clrscr();
         printf("Selecciona opcion\n1.-Juego Nuevo\n2.-Salir\n");
 
-        do {
+        do
+        {
             gotoxy(xx, 5); printf("---****---*****--*----*-..######..##....##....###....##....##.########"); delay(4);
             gotoxy(xx, 6); printf("---*---*----*-----*--*--.##....##.###...##...##.##...##...##..##......"); delay(4);
             gotoxy(xx, 7); printf("---*---*----*------**---.##.......####..##..##...##..##..##...##......"); delay(4);
@@ -371,13 +378,15 @@ int inicio(void)
             gotoxy(xx, 11); printf("---*------*****-*------*..######..##....##.##.....##.##....##.########"); delay(4);
 
             xx++;
-        } while (xx < 81);
+        }
+        while (xx < 81);
 
         gotoxy(1, 55); cprintf("RIVERJUEGOS-->:");
         xx = 1;
         flushall(); gets(opi);
         opti = atoi(opi);
-    } while (opti == 0);
+    }
+    while (opti == 0);
 
     return opti;
 }
@@ -418,7 +427,7 @@ void puertac(void)
 {
     gotoxy(18, 7); printf(" ========================================== ");
     gotoxy(18, 8); printf("|x x x x x x     Bienvenido!   x x x x x x |");
-    gotoxy(18, 9); printf("| '   ï   .                     u   +   3  |");
+    gotoxy(18, 9); printf("| '   Ã¯   .                     u   +   3  |");
     gotoxy(18, 10); printf(" ================          ================ ");
     gotoxy(35, 11); printf("|        |");
     gotoxy(35, 12); printf("|        |");
@@ -435,7 +444,7 @@ void puertaa(void)
 {
     gotoxy(18, 7); printf(" ========================================== ");
     gotoxy(18, 8); printf("|x x x x x x     Bienvenido!   x x x x x x |");
-    gotoxy(18, 9); printf("| '   ï   .                     u   +   3  |");
+    gotoxy(18, 9); printf("| '   Ã¯   .                     u   +   3  |");
     gotoxy(18, 10); printf(" ================          ================ ");
     gotoxy(35, 11); printf("|        |");
     gotoxy(35, 12); printf("|        |");
@@ -458,7 +467,7 @@ void puertal(void)
 {
     gotoxy(18, 7); printf(" ========================================== ");
     gotoxy(18, 8); printf("|x x x x x xCuidado con la puerta! x x x x |");
-    gotoxy(18, 9); printf("| '   ï   .                         +   3  |");
+    gotoxy(18, 9); printf("| '   Ã¯   .                         +   3  |");
     gotoxy(18, 10); printf(" ================          ================ ");
     gotoxy(35, 11); printf("|        |");
     gotoxy(35, 12); printf("|        |");
