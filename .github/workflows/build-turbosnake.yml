@@ -67,7 +67,7 @@ jobs:
     - name: Show build directory contents
       run: |
         ls -la build
-        cat build/compile.log
+        cat build/COMPILE.LOG
 
     - name: Artifact path setup
       run: |
