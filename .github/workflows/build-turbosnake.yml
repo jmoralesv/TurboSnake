@@ -42,7 +42,7 @@ jobs:
         echo "c:" >> $GITHUB_OUTPUT
         echo "cd \\build" >> $GITHUB_OUTPUT
         echo "dir" >> $GITHUB_OUTPUT
-        echo "tcc main.cpp game.cpp -egame > compile.log 2>&1" >> $GITHUB_OUTPUT
+        echo "tcc main.cpp game.cpp -egame > compile.log" >> $GITHUB_OUTPUT
         echo "EOF" >> $GITHUB_OUTPUT
 
     - name: Show run commands
