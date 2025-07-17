@@ -2,7 +2,8 @@ name: Build TurboSnake
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - '**'
     paths:
       - 'src/**'
       - '.github/workflows/**'
