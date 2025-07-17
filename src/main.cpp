@@ -1,6 +1,11 @@
-#include <stdio.h>
-#include <conio.h>
+#include<stdio.h>
+#include<conio.h>
+#include<stdlib.h>
+#include<string.h>
+#include<dos.h>
 #include "game.h"
+
+void configurarCaracteresEspanol(void);
 
 int main()
 {
