@@ -29,7 +29,7 @@ jobs:
     - name: Create build folder
       run: |
         mkdir -p build
-        cp -r "src/$ORIGINAL_FILENAME" "build/$RENAMED_FILENAME"
+        cp src/*.cpp src/*.h build/
         ls -la build
 
     # This step creates the run commands to be executed in DOSBox-X
@@ -42,7 +42,7 @@ jobs:
         echo "c:" >> $GITHUB_OUTPUT
         echo "cd \\build" >> $GITHUB_OUTPUT
         echo "dir" >> $GITHUB_OUTPUT
-        echo "tcc ${RENAMED_FILENAME}" >> $GITHUB_OUTPUT
+        echo "tcc main.cpp game.cpp -egame > compile.log 2>&1" >> $GITHUB_OUTPUT
         echo "EOF" >> $GITHUB_OUTPUT
 
     - name: Show run commands
@@ -65,7 +65,9 @@ jobs:
           turbo=true
 
     - name: Show build directory contents
-      run: ls -la build
+      run: |
+        ls -la build
+        cat build/compile.log
 
     - name: Artifact path setup
       run: |
