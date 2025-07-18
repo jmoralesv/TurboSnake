@@ -4,5 +4,5 @@
 
 void startGame()
 {
-    cprintf("Hola mundo!");
+    cprintf("Hola mundo desde startGame!");
 }

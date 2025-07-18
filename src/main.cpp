@@ -5,16 +5,7 @@
 #include<dos.h>
 #include "game.h"
 
-void configurarCaracteresEspanol(void);
-
-int main()
-{
-    configurarCaracteresEspanol();
-    startGame();
-    return 0;
-}
-
-void configurarCaracteresEspanol(void)
+void configurarCaracteresEspanol()
 {
     union REGS regs;
     regs.h.ah = 0x10;
@@ -23,6 +14,16 @@ void configurarCaracteresEspanol(void)
     regs.h.bl = 2;  // Load ROM 8x16 font
     int86(0x10, &regs, &regs);
 
-    // Set code page to 850 which DOS uses for Western European languages
+    // Set code page to 850
     system("chcp 850");
+}
+
+int main(void)
+{
+    configurarCaracteresEspanol();
+    startGame();
+
+    cprintf("Hola a%co 2025!", 164);  // prints "Hola año 2025!"
+    cprintf("\nMurci%clago", 130); // prints "Murciélago"
+    return 0;
 }
