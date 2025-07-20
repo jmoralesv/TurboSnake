@@ -16,8 +16,9 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      ORIGINAL_FILENAME: "PIXGAMA2 copia.CPP"
-      RENAMED_FILENAME: "game.cpp"
+      SOURCE_FILES: "principal.cpp bucle.cpp utilidad.cpp juego.cpp pantalla.cpp serpiente.cpp global.cpp"
+      LOG_FILE: "COMPILE.LOG"
+      GAME_NAME: "GAME"
 
     steps:
     - name: Checkout repo
@@ -26,14 +27,14 @@ jobs:
     - name: Install DOSBox-X using Snap
       run: sudo snap install dosbox-x
 
-    - name: Create build folder
+    - name: Create build folder and copy source files
       run: |
         mkdir -p build
         cp src/*.cpp src/*.h build/
         ls -la build
 
     # This step creates the run commands to be executed in DOSBox-X
-    # and replaces the ${RENAMED_FILENAME} variable with the actual filename
+    # and replaces any variable enclosed in ${} with its value
     # then the commands are stored in the `run_commands` output variable
     - name: Prepare run commands
       id: run
@@ -42,7 +43,7 @@ jobs:
         echo "c:" >> $GITHUB_OUTPUT
         echo "cd \\build" >> $GITHUB_OUTPUT
         echo "dir" >> $GITHUB_OUTPUT
-        echo "tcc -egame main.cpp game.cpp > compile.log" >> $GITHUB_OUTPUT
+        echo "tcc -e${GAME_NAME} ${SOURCE_FILES} > ${LOG_FILE}" >> $GITHUB_OUTPUT
         echo "EOF" >> $GITHUB_OUTPUT
 
     - name: Show run commands
@@ -67,12 +68,11 @@ jobs:
     - name: Show build directory contents
       run: |
         ls -la build
-        cat build/COMPILE.LOG
+        cat build/${LOG_FILE}
 
     - name: Artifact path setup
       run: |
-        BASENAME="${RENAMED_FILENAME%.*}"
-        EXENAME="${BASENAME^^}.EXE"
+        EXENAME="${GAME_NAME^^}.EXE"
         echo "artifactPath=build/$EXENAME" >> $GITHUB_ENV
 
     - name: Upload EXE

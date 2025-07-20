@@ -3,7 +3,7 @@
 
 #include "global.h"
 
-// Funciones de pantalla y display
+// Funciones de pantalla
 void dibujarFondo(void);
 void crearAsteriscos(int n);
 void mostrarInformacionDinamica(void);
