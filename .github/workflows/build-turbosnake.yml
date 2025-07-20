@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      SOURCE_FILES: "principal.cpp bucle.cpp utilidad.cpp juego.cpp pantalla.cpp serpiente.cpp global.cpp"
+      SOURCE_FILES: "global.cpp serpiente.cpp pantalla.cpp juego.cpp utilidad.cpp bucle.cpp principal.cpp"
       LOG_FILE: "COMPILE.LOG"
       GAME_NAME: "GAME"
 
