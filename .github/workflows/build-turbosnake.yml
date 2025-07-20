@@ -33,6 +33,13 @@ jobs:
         cp src/*.cpp src/*.h build/
         ls -la build
 
+    - name: Create Turbo C++ response file
+      run: |
+        : > build/files.lst
+        for file in $SOURCE_FILES; do
+          echo "$file" >> build/files.lst
+        done
+
     # This step creates the run commands to be executed in DOSBox-X
     # and replaces any variable enclosed in ${} with its value
     # then the commands are stored in the `run_commands` output variable
@@ -43,7 +50,7 @@ jobs:
         echo "c:" >> $GITHUB_OUTPUT
         echo "cd \\build" >> $GITHUB_OUTPUT
         echo "dir" >> $GITHUB_OUTPUT
-        echo "tcc -e${GAME_NAME} ${SOURCE_FILES} > ${LOG_FILE}" >> $GITHUB_OUTPUT
+        echo "tcc -e${GAME_NAME} @files.lst > ${LOG_FILE}" >> $GITHUB_OUTPUT
         echo "EOF" >> $GITHUB_OUTPUT
 
     - name: Show run commands
