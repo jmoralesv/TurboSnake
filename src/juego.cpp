@@ -1,5 +1,5 @@
 #include "juego.h"
-#include "serpiente.h"
+#include "serpnt.h"
 #include "pantalla.h"
 
 void inicializarMatriz(void)

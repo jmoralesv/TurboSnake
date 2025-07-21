@@ -1,5 +1,5 @@
-#ifndef SERPIENTE_H
-#define SERPIENTE_H
+#ifndef SERPNT_H
+#define SERPNT_H
 
 #include "global.h"
 

@@ -1,5 +1,5 @@
 #include "bucle.h"
-#include "serpiente.h"
+#include "serpnt.h"
 #include "pantalla.h"
 #include "juego.h"
 

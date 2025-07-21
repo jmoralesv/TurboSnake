@@ -1,4 +1,4 @@
-#include "serpiente.h"
+#include "serpnt.h"
 
 void crearSerpiente(void)
 {
